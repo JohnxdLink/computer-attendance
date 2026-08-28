@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/pages/landing.css" />
+  </head>
+  <body>
+<style>
+  :root{
+    --ink:#1B2430;
+    --ink-2:#242F3E;
+    --paper:#F4F0E6;
+    --paper-2:#EAE3D2;
+    --brass:#B8894F;
+    --brass-light:#D9AE79;
+    --forest:#4A6350;
+    --charcoal:#2A2A28;
+    --cream:#FAF8F3;
+    --line:rgba(27,36,48,0.14);
+    --line-light:rgba(250,248,243,0.16);
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    color:var(--charcoal);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,240,230,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--font-display); font-weight:600; font-size:1.15rem;
+    letter-spacing:0.01em;
+  }
+  .brand-mark{
+    width:34px; height:34px; border:1.5px solid var(--ink); border-radius:3px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.03em;
+    background:var(--ink); color:var(--brass-light);
+    position:relative; overflow:hidden;
+  }
+  .brand-mark::after{
+    content:''; position:absolute; left:0; right:0; top:50%; height:1px;
+    background:var(--brass-light); opacity:0.5;
+    animation: scanline 2.8s ease-in-out infinite;
+  }
+  @keyframes scanline{
+    0%,100%{ transform:translateY(-9px); opacity:0;}
+    50%{ transform:translateY(9px); opacity:0.8;}
+  }
+  nav ul{
+    list-style:none; display:flex; gap:38px;
+    font-size:0.92rem; font-weight:500;
+  }
+  nav ul a{
+    position:relative; padding:6px 0; color:var(--ink-2);
+    transition:color .2s ease;
+  }
+  nav ul a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--brass); transition:width .25s ease;
+  }
+  nav ul a:hover{color:var(--ink);}
+  nav ul a:hover::after{width:100%;}
+  nav ul a:focus-visible, .btn:focus-visible{outline:2px solid var(--brass); outline-offset:3px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:var(--cream);
+    overflow:hidden;
+    padding:96px 0 84px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0, transparent 47px,
+      var(--line-light) 47px, var(--line-light) 48px
+    );
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--brass-light);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+    opacity:0; animation: rise .7s ease forwards;
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--forest); box-shadow:0 0 0 3px rgba(74,99,80,0.35);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 3px rgba(74,99,80,0.35);}
+    50%{box-shadow:0 0 0 6px rgba(74,99,80,0.12);}
+  }
+  h1.hero-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(2.15rem, 3.6vw, 3.4rem);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    max-width:15ch;
+    opacity:0; animation: rise .7s ease .1s forwards;
+  }
+  .hero-title em{
+    font-style:italic; color:var(--brass-light); font-weight:500;
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:1.06rem; line-height:1.65;
+    color:rgba(250,248,243,0.72);
+    max-width:44ch;
+    opacity:0; animation: rise .7s ease .2s forwards;
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero-ctas{
+    margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; animation: rise .7s ease .3s forwards;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:13px 26px; border-radius:2px; font-size:0.92rem; font-weight:600;
+    cursor:pointer; border:1px solid transparent; transition: all .22s ease;
+  }
+  .btn-primary{
+    background:var(--brass); color:var(--ink);
+  }
+  .btn-primary:hover{background:var(--brass-light); transform:translateY(-1px);}
+  .btn-ghost{
+    border-color:rgba(250,248,243,0.35); color:var(--cream);
+  }
+  .btn-ghost:hover{border-color:var(--brass-light); color:var(--brass-light);}
+
+  .hero-meta{
+    margin-top:44px; display:flex; gap:34px;
+    opacity:0; animation: rise .7s ease .4s forwards;
+  }
+  .hero-meta div{border-left:1px solid rgba(250,248,243,0.2); padding-left:16px;}
+  .hero-meta .num{font-family:var(--font-mono); font-size:1.35rem; color:var(--brass-light); display:block;}
+  .hero-meta .lbl{font-size:0.76rem; color:rgba(250,248,243,0.55); text-transform:uppercase; letter-spacing:0.06em;}
+
+  /* ---------- signature ID-card visual ---------- */
+  .card-stage{
+    position:relative; height:420px;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; animation: rise .8s ease .35s forwards;
+  }
+  .id-card{
+    width:290px; height:180px; border-radius:10px;
+    background:linear-gradient(155deg, #232E3D 0%, #182029 100%);
+    border:1px solid rgba(216,174,121,0.25);
+    box-shadow: 0 24px 60px -18px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.2);
+    padding:20px 22px;
+    position:relative; overflow:hidden;
+    transform: rotate(-6deg);
+  }
+  .id-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:5px;
+    background:linear-gradient(90deg, var(--brass), var(--brass-light));
+  }
+  .id-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .id-crest{
+    width:34px; height:34px; border-radius:50%;
+    background:rgba(216,174,121,0.14); border:1px solid rgba(216,174,121,0.4);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-size:0.85rem; color:var(--brass-light);
+  }
+  .id-status{
+    font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.08em;
+    color:var(--forest); background:rgba(126,166,138,0.16);
+    padding:4px 8px; border-radius:20px; border:1px solid rgba(126,166,138,0.4);
+  }
+  .id-name{font-family:var(--font-display); font-size:1.15rem; color:var(--cream); margin-top:26px;}
+  .id-sub{font-family:var(--font-mono); font-size:0.68rem; color:rgba(250,248,243,0.5); margin-top:4px; letter-spacing:0.03em;}
+  .id-barcode{
+    margin-top:16px; display:flex; gap:2px; align-items:flex-end; height:22px;
+  }
+  .id-barcode span{width:3px; background:rgba(216,174,121,0.55); display:block;}
+
+  .scan-beam{
+    position:absolute; left:8%; right:8%; height:2px;
+    background:linear-gradient(90deg, transparent, var(--brass-light), transparent);
+    box-shadow:0 0 12px 2px rgba(217,174,121,0.5);
+    animation: scan 3.2s cubic-bezier(.65,0,.35,1) infinite;
+  }
+  @keyframes scan{
+    0%{top:14%; opacity:0;}
+    8%{opacity:1;}
+    48%{top:86%; opacity:1;}
+    56%{opacity:0;}
+    100%{top:86%; opacity:0;}
+  }
+  .ping{
+    position:absolute; width:9px; height:9px; border-radius:50%;
+    background:var(--forest); top:8%; right:6%;
+    box-shadow:0 0 0 0 rgba(74,99,80,0.5);
+    animation: ping-anim 3.2s ease-in-out infinite;
+  }
+  @keyframes ping-anim{
+    0%,45%{ transform:scale(0); opacity:0;}
+    52%{ transform:scale(1); opacity:1; box-shadow:0 0 0 8px rgba(74,99,80,0);}
+    75%{ transform:scale(1); opacity:1;}
+    100%{ transform:scale(0.6); opacity:0;}
+  }
+  .ledger-tag{
+    position:absolute; bottom:8%; left:6%;
+    font-family:var(--font-mono); font-size:0.7rem; color:rgba(250,248,243,0.45);
+    letter-spacing:0.05em;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:96px 0;}
+  .section-label{
+    font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--brass); margin-bottom:16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-label::before{content:'§'; font-family:var(--font-display); font-style:italic;}
+
+  /* ---------- section 2: problem ---------- */
+  .problem{
+    background:var(--paper-2);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .problem-head{max-width:60ch;}
+  h2.problem-title{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(1.7rem, 2.6vw, 2.3rem); line-height:1.18; color:var(--ink);
+  }
+  .quote-block{
+    margin-top:40px;
+    border-left:3px solid var(--brass);
+    padding:6px 0 6px 28px;
+  }
+  .quote-block p{
+    font-family:var(--font-display); font-style:italic; font-weight:500;
+    font-size:clamp(1.3rem, 2vw, 1.65rem); color:var(--ink-2); line-height:1.4;
+  }
+  .quote-block span{
+    display:block; margin-top:10px; font-family:var(--font-mono);
+    font-size:0.75rem; color:var(--charcoal); opacity:0.6; letter-spacing:0.03em;
+  }
+
+  .problem-cols{
+    margin-top:64px;
+    display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch;
+  }
+  .divider-col{
+    display:flex; align-items:center; justify-content:center; padding:0 28px;
+  }
+  .divider-col span{
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--charcoal);
+    opacity:0.45; writing-mode:vertical-rl; letter-spacing:0.1em;
+  }
+  .col{
+    background:var(--cream); border:1px solid var(--line); padding:34px 30px;
+    border-radius:4px;
+  }
+  .col-manual{position:relative;}
+  .col-manual::after{
+    content:''; position:absolute; inset:14px; border:1px dashed rgba(42,42,40,0.15);
+    pointer-events:none; border-radius:2px;
+  }
+  .col-head{
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .col-icon{
+    width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:0.8rem;
+  }
+  .col-manual .col-icon{background:rgba(184,64,64,0.1); color:#9C3D3D; border:1px solid rgba(156,61,61,0.3);}
+  .col-digital .col-icon{background:rgba(74,99,80,0.1); color:var(--forest); border:1px solid rgba(74,99,80,0.35);}
+  .col h3{font-family:var(--font-display); font-size:1.15rem; font-weight:600; color:var(--ink);}
+  .col ul{list-style:none; display:flex; flex-direction:column; gap:12px;}
+  .col li{
+    font-size:0.94rem; line-height:1.5; color:var(--charcoal); opacity:0.85;
+    padding-left:18px; position:relative;
+  }
+  .col-manual li::before{
+    content:'—'; position:absolute; left:0; color:#9C3D3D; opacity:0.7;
+  }
+  .col-digital li::before{
+    content:'✓'; position:absolute; left:0; color:var(--forest); font-weight:700;
+  }
+
+  .impact-line{
+    margin-top:56px; padding-top:36px; border-top:1px solid var(--line);
+    display:flex; gap:24px; align-items:flex-start;
+  }
+  .impact-line p{
+    font-size:1.02rem; line-height:1.7; color:var(--ink-2); max-width:70ch;
+  }
+
+  /* ---------- footer cta ---------- */
+  .closing{
+    background:var(--ink); color:var(--cream); text-align:center;
+    padding:88px 0;
+  }
+  .closing h2{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(1.6rem, 2.6vw, 2.2rem); max-width:22ch; margin:0 auto 28px;
+  }
+  .closing .hero-ctas{justify-content:center; opacity:1; animation:none;}
+
+  footer{
+    background:var(--ink); border-top:1px solid var(--line-light);
+    padding:26px 0; color:rgba(250,248,243,0.5); font-size:0.82rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:880px){
+    nav ul{display:none;}
+    .hero-grid{grid-template-columns:1fr; gap:48px;}
+    .card-stage{height:280px;}
+    .problem-cols{grid-template-columns:1fr; gap:22px;}
+    .divider-col{padding:6px 0;}
+    .divider-col span{writing-mode:horizontal-tb;}
+    .hero-meta{flex-wrap:wrap; gap:24px;}
+  }
+</style>
+</head>
+
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="brand-mark">BC</div>
+      Britech College
+    </div>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#problem">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Grade 12 · Alcaraz Strand Research Study</div>
+      <h1 class="hero-title">Effectiveness of a <em>Computerized</em> Attendance Monitoring System</h1>
+      <p class="hero-sub">A study on how a digital check-in system performs against manual attendance-taking for Grade&nbsp;12 Alcaraz students at Britech College — measured for accuracy, efficiency, and reliability.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#problem">Learn more</a>
+        <a class="btn btn-ghost" href="#how">Get started</a>
+      </div>
+      <div class="hero-meta">
+        <div><span class="num">01</span><span class="lbl">Sections</span></div>
+        <div><span class="num">G12</span><span class="lbl">Alcaraz cohort</span></div>
+        <div><span class="num">CAMS</span><span class="lbl">System studied</span></div>
+      </div>
+    </div>
+
+    <div class="card-stage" aria-hidden="true">
+      <div class="id-card">
+        <div class="scan-beam"></div>
+        <div class="ping"></div>
+        <div class="id-top">
+          <div class="id-crest">BC</div>
+          <div class="id-status">checked in</div>
+        </div>
+        <div class="id-name">J. Dela Cruz</div>
+        <div class="id-sub">GRADE 12 · ALCARAZ · ID 24-0417</div>
+        <div class="id-barcode">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+          <span style="height:80%"></span><span style="height:55%"></span><span style="height:90%"></span>
+          <span style="height:35%"></span><span style="height:70%"></span><span style="height:100%"></span>
+          <span style="height:50%"></span><span style="height:65%"></span><span style="height:30%"></span>
+        </div>
+        <div class="ledger-tag">08:02 AM — ON TIME</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="wrap">
+    <div class="section-label">Section 1 — About / Problem</div>
+    <div class="problem-head">
+      <h2 class="problem-title">Attendance still runs on paper, in a school built for the digital age.</h2>
+    </div>
+
+    <div class="quote-block">
+      <p>"Why does this matter?"</p>
+      <span>THE QUESTION AT THE CENTER OF THIS STUDY</span>
+    </div>
+
+    <div class="problem-cols">
+      <div class="col col-manual">
+        <div class="col-head">
+          <div class="col-icon">✕</div>
+          <h3>Manual attendance</h3>
+        </div>
+        <ul>
+          <li>Takes up class time to call names or pass a sheet</li>
+          <li>Prone to human error and mismarked entries</li>
+          <li>Makes it difficult to monitor student presence in real time</li>
+          <li>Records are harder to search, total, and report on</li>
+        </ul>
+      </div>
+
+      <div class="divider-col"><span>VS</span></div>
+
+      <div class="col col-digital">
+        <div class="col-head">
+          <div class="col-icon">✓</div>
+          <h3>Computerized system</h3>
+        </div>
+        <ul>
+          <li>Logs a student's presence in seconds at check-in</li>
+          <li>Reduces mismarked or missed entries</li>
+          <li>Gives staff a live, accurate view of who's present</li>
+          <li>Turns attendance into data that's easy to review</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="impact-line">
+      <p>Manual attendance-taking takes time, is prone to errors, and makes it difficult to monitor student presence. This study looks at whether a computerized system helps solve those problems — and how much it improves accuracy and efficiency for Grade 12 Alcaraz at Britech College.</p>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="how">
+  <div class="wrap">
+    <h2>Read the full study on Britech College's Computerized Attendance Monitoring System.</h2>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#problem">Learn more</a>
+      <a class="btn btn-ghost" href="#home">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
+    <span>Britech College · Grade 12 Alcaraz Research Study</span>
+    <span>Computerized Attendance Monitoring System (CAMS)</span>
+  </div>
+</footer>
+
+  </body>
+</html>
