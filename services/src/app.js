@@ -3,6 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const path = require("path");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 
 const db = require("./config/database.js");
 
@@ -96,7 +97,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 //
 
 app.get("/api/health", (req, res) => {
-  res.status(200).json({
+  res.status(StatusCodes.OK).json({
     success: true,
     service: "backend",
     status: "online",
@@ -107,7 +108,7 @@ app.get("/api/health/db", async (req, res) => {
   try {
     const [result] = await db.query("SELECT 1 AS connected");
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       database: "online",
       result,
@@ -115,10 +116,10 @@ app.get("/api/health/db", async (req, res) => {
   } catch (error) {
     console.error("Database error:", error);
 
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       database: "offline",
-      error: error.message,
+      error: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 });
