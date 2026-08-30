@@ -1,20 +1,11 @@
-# ============================================================
-# NODE.JS
-# ============================================================
+services/mysql_data
+services/docker-compose.yml
 
 # Installed Node.js packages
 services/node_modules/
 
-# ============================================================
-# ENVIRONMENT VARIABLES
-# ============================================================
-
 # Private environment configuration
 services/.env
-
-# ============================================================
-# UPLOADED FILES
-# ============================================================
 
 services/uploads/*
 assets/images/uploads/*
