@@ -1,0 +1,19 @@
+/* Card Box: Sapat na padding sa loob para hindi sagad ang nilalaman */
+.facebook-login-card {
+  padding: 30px 25px; /* 30px sa taas/ibaba, 25px sa kaliwa/kanan */
+}
+
+/* Input Fields: Espasyo sa loob para sa tina-type na text */
+.facebook-login-card input {
+  padding: 12px 16px; /* 12px taas/ibaba para madaling pindutin sa mobile */
+}
+
+/* Log In Button: Patong na kapal sa button */
+.login-main-button {
+  padding: 12px;
+}
+
+/* Create New Account Button */
+.create-account {
+  padding: 10px 20px;
+}

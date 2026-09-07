@@ -3,43 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Computer Attendance - Britech College</title>
-    <link rel="stylesheet" href="./asset/css/style.css" />
-    <link rel="stylesheet" href="./asset/css/pages/landing.css" />
+
+    <title>Login | BRITECH College</title>
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/ba se/padding.css" />
   </head>
-  <body>
-    <div class="login-wrapper">
-      <div class="col-logo">
-        <img src="images/britech-logo.png" alt="Britech Logo" />
-        <h2>Britech College</h2>
-        <p>Computer Attendance Monitoring System.</p>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <img src="assets/css/images/logo/britech-logo.png.png  " alt="" />
       </div>
-
-      <div class="form-container">
-        <form action="#">
-          <div class="input-group">
-            <input type="text" placeholder="Full Name" required />
-          </div>
-          <div class="input-group">
-            <input type="password" placeholder="Student ID Number" required />
-          </div>
-          <button type="submit" class="btn-login">LOG IN</button>
-          <a href="#" class="forgot-link">Forgot School ID?</a>
-          <div class="divider"></div>
-        </form>
-      </div>
-
-      <p class="sub-text"><a href="#">Create a Page</a> for School Purposes and Computer Monitoring.</p>
-
-      <footer>
-        <div class="footer-contents">
-          <ul>
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Log In</a></li>
-          </ul>
-          <small>Britech College © 2026</small>
-        </div>
-      </footer>
     </div>
+  </header>
+
+  <body class="facebook-style-login">
+    <!-- TOP BRAND -->
+    <div class="login-brand">
+      <h1>BRITECH</h1>
+
+      <p>COLLEGE</p>
+
+      <span> Computer Attendance Monitoring System </span>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="britech-login-card">
+      <h2>Log in to BRITECH</h2>
+
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username or email" required />
+
+        <input type="password" id="password" placeholder="Password" required />
+
+        <button type="submit" class="login-main-button">Log In</button>
+      </form>
+
+      <a href="#" class="forgot-password"> Forgot password? </a>
+
+      <div class="login-divider">
+        <span></span>
+        <small>or</small>
+        <span></span>
+      </div>
+
+      <a href="#" class="create-account"> Create New Account </a>
+    </div>
+
+    <!-- BACK TO WEBSITE -->
+    <div class="back-website">
+      <a href="index.html"> ← Back to BRITECH College website </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="simple-login-footer">
+      <p>© 2026 BRITECH College</p>
+    </footer>
+
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+
+        const password = document.getElementById("password").value;
+
+        if (username && password) {
+          alert("Login submitted. Connect this form to your database.");
+        }
+      });
+    </script>
   </body>
 </html>
