@@ -7,94 +7,20 @@ const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 
 const db = require("./config/database.js");
 
+const authRoutes = require("./routes/auth-routes.js");
+
 const app = express();
 
 const PROJECT_ROOT = path.join(__dirname, "../..");
 
-// ============================================================
-// MIDDLEWARE
-// ============================================================
-//
-// Helmet adds several HTTP security headers to responses.
-//
-
 app.use(helmet());
-
-// ------------------------------------------------------------
-// CORS
-// ------------------------------------------------------------
-//
-// CORS allows frontend applications to communicate with
-// backend services when they are running on different origins.
-//
-
 app.use(cors());
-
-// ------------------------------------------------------------
-// JSON Parser
-// ------------------------------------------------------------
-//
-// Allows Express to read JSON data sent by clients.
-//
-
 app.use(express.json());
-
-// ------------------------------------------------------------
-// Form Data Parser
-// ------------------------------------------------------------
-//
-// Allows Express to read data submitted through forms.
-//
-
 app.use(express.urlencoded({ extended: true }));
-
-// ------------------------------------------------------------
-// HTTP Request Logger
-// ------------------------------------------------------------
-//
-// Morgan displays HTTP requests in the terminal.
-//
-// Example:
-//
-// GET /
-// GET /assets/css/style.css
-// GET /api/health
-//
-
 app.use(morgan("dev"));
-
-// ============================================================
-// SERVE FRONTEND
-// ============================================================
-//
-
 app.use(express.static(PROJECT_ROOT));
 
-// ============================================================
-// SERVE UPLOADED FILES
-// ============================================================
-//
-// Uploaded files will be stored inside:
-//
-// services/uploads/
-//
-// They can be accessed through:
-//
-// http://localhost:3000/uploads/filename.jpg
-//
-
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
-
-// ============================================================
-// API HEALTH CHECK
-// ============================================================
-//
-// This route checks whether the backend is running.
-//
-// URL:
-//
-// http://localhost:3000/api/health
-//
 
 app.get("/api/health", (req, res) => {
   res.status(StatusCodes.OK).json({
@@ -124,23 +50,10 @@ app.get("/api/health/db", async (req, res) => {
   }
 });
 
-// ============================================================
-// HOME PAGE
-// ============================================================
-//
-// When a user visits:
-//
-// http://localhost:3000/
-//
-// Express sends the project's index.html.
-//
+app.use("/api", authRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(PROJECT_ROOT, "index.html"));
 });
-
-// ============================================================
-// EXPORT APP
-// ============================================================
 
 module.exports = app;
