@@ -177,3 +177,102 @@ body.britech-style-login {
   color: var(--light-beige);
   opacity: 0.7;
 }
+
+/* ==========================================
+   BRITECH COLLEGE - THEME & COLOR PALETTE
+   ========================================== */
+
+:root {
+  /* Color Palette */
+  --color-dark-brown: #3e2723;
+  --color-primary-brown: #6d4c41;
+  --color-primary-hover: #5d3a2f;
+  --color-cream: #f5f5dc;
+  --color-white: #ffffff;
+  --color-light-beige: #f5ebe0;
+  --color-dark-text: #2c1d11;
+
+  /* Layout Spacing & Padding Variables */
+  --padding-card: 30px 25px;
+  --padding-input: 12px 16px;
+  --padding-btn: 12px 20px;
+  --padding-btn-small: 10px 16px;
+
+  /* Borders & Shadows */
+  --border-radius: 6px;
+  --box-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --border-input: 1px solid rgba(109, 76, 65, 0.3);
+}
+
+/* GLOBAL RESETS USING THEME */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.britech-login-page {
+  background-color: var(--color-dark-brown);
+  color: var(--color-white);
+}
+
+/* CARD THEME */
+.britech-login-card {
+  background-color: var(--color-cream);
+  color: var(--color-dark-text);
+  padding: var(--padding-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-card);
+}
+
+/* INPUT THEME */
+.britech-login-card input {
+  background-color: var(--color-light-beige);
+  color: var(--color-dark-text);
+  border: var(--border-input);
+  padding: var(--padding-input);
+  border-radius: var(--border-radius);
+}
+
+.britech-login-card input:focus {
+  border-color: var(--color-primary-brown);
+}
+
+/* BUTTON THEMES */
+.britech-main-button {
+  background-color: var(--color-primary-brown);
+  color: var(--color-white);
+  padding: var(--padding-btn);
+  border-radius: var(--border-radius);
+}
+
+.britech-main-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.britech-create-account {
+  color: var(--color-primary-brown);
+  border: 1px solid var(--color-primary-brown);
+  padding: var(--padding-btn-small);
+  border-radius: var(--border-radius);
+}
+
+.britech-create-account:hover {
+  background-color: var(--color-light-beige);
+}
+
+/* LINKS AND TEXT */
+.britech-brand h1 {
+  color: var(--color-cream);
+}
+
+.britech-brand p,
+.britech-brand span,
+.britech-back-website a,
+.britech-login-footer {
+  color: var(--color-light-beige);
+}
+
+.britech-forgot-password {
+  color: var(--color-primary-brown);
+}

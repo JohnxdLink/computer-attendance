@@ -6,40 +6,29 @@
 
     <title>Login | BRITECH College</title>
 
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/ba se/padding.css" />
+    <link rel="stylesheet" href="../assets/css/pages/sign-in.css" />
   </head>
 
   <header>
     <div class="wrap nav">
       <div class="brand">
-        <img src="assets/css/images/logo/britech-logo.png.png  " alt="" />
+        <img src="../assets/images/logo/britech-logo.png " width="100" height="100" alt="" />
       </div>
     </div>
   </header>
 
-  <body class="facebook-style-login">
-    <!-- TOP BRAND -->
-    <div class="login-brand">
-      <h1>BRITECH</h1>
-
-      <p>COLLEGE</p>
-
-      <span> Computer Attendance Monitoring System </span>
-    </div>
-
+  <body class="britech-style-login">
     <!-- LOGIN CARD -->
     <div class="britech-login-card">
       <h2>Log in to BRITECH</h2>
 
       <form id="loginForm">
-        <input type="text" id="username" placeholder="Username or email" required />
+        <input type="text" id="username" placeholder="Student ID" required />
 
-        <input type="password" id="password" placeholder="Password" required />
+        <input type="password" id="password" placeholder="Student Name" required />
 
         <button type="submit" class="login-main-button">Log In</button>
       </form>
-
       <a href="#" class="forgot-password"> Forgot password? </a>
 
       <div class="login-divider">
@@ -53,26 +42,12 @@
 
     <!-- BACK TO WEBSITE -->
     <div class="back-website">
-      <a href="index.html"> ← Back to BRITECH College website </a>
+      <a href="../index.html"> ← Back to BRITECH College website </a>
     </div>
 
     <!-- FOOTER -->
     <footer class="simple-login-footer">
       <p>© 2026 BRITECH College</p>
     </footer>
-
-    <script>
-      document.getElementById("loginForm").addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById("username").value;
-
-        const password = document.getElementById("password").value;
-
-        if (username && password) {
-          alert("Login submitted. Connect this form to your database.");
-        }
-      });
-    </script>
   </body>
 </html>
