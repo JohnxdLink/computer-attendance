@@ -1,4 +1,9 @@
+/* ==========================================
+   BRITECH COLLEGE - LOGIN THEME
+   ========================================== */
+
 :root {
+  /* Color Palette */
   --dark-brown: #3e2723;
   --primary-brown: #6d4c41;
   --primary-brown-hover: #5d3a2f;
@@ -6,7 +11,22 @@
   --white: #ffffff;
   --light-beige: #f5ebe0;
   --dark-text: #2c1d11;
+
+  /* Spacing */
+  --padding-card: 30px 25px;
+  --padding-input: 12px 16px;
+  --padding-button: 12px 20px;
+  --padding-button-small: 10px 16px;
+
+  /* Borders & Shadows */
+  --border-radius: 6px;
+  --border-input: 1px solid rgba(109, 76, 65, 0.3);
+  --box-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
+
+/* ==========================================
+   GLOBAL RESET
+   ========================================== */
 
 * {
   box-sizing: border-box;
@@ -15,16 +35,26 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ==========================================
+   LOGIN PAGE
+   ========================================== */
+
 body.britech-style-login {
-  background-color: var(--dark-brown);
-  color: var(--white);
   min-height: 100vh;
+  padding: 20px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+
+  background-color: var(--dark-brown);
+  color: var(--white);
 }
+
+/* ==========================================
+   BRAND / LOGO
+   ========================================== */
 
 .login-brand {
   text-align: center;
@@ -33,22 +63,28 @@ body.britech-style-login {
 
 .brand-logo {
   display: block;
-  margin: 0 auto 10px auto;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+
   border-radius: 50%;
   object-fit: contain;
 }
 
 .login-brand h1 {
+  margin-bottom: 5px;
+
   font-size: 28px;
   letter-spacing: 2px;
   color: var(--cream);
 }
 
 .login-brand p {
+  margin-bottom: 5px;
+
   font-size: 14px;
   letter-spacing: 1px;
   color: var(--light-beige);
-  margin-bottom: 5px;
 }
 
 .login-brand span {
@@ -57,33 +93,52 @@ body.britech-style-login {
   opacity: 0.8;
 }
 
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+
 .britech-login-card {
-  background-color: var(--cream);
-  color: var(--dark-text);
   width: 100%;
   max-width: 380px;
-  padding: 25px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: var(--padding-card);
+
+  background-color: var(--cream);
+  color: var(--dark-text);
+
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-card);
+
   text-align: center;
 }
 
 .britech-login-card h2 {
-  font-size: 18px;
   margin-bottom: 20px;
+
+  font-size: 18px;
   color: var(--dark-brown);
 }
 
+/* ==========================================
+   INPUT FIELDS
+   ========================================== */
+
 .britech-login-card input {
   width: 100%;
-  padding: 12px;
+  padding: var(--padding-input);
   margin-bottom: 12px;
+
   background-color: var(--light-beige);
-  border: 1px solid rgba(109, 76, 65, 0.3);
-  border-radius: 4px;
   color: var(--dark-text);
+
+  border: var(--border-input);
+  border-radius: var(--border-radius);
+
   font-size: 14px;
   outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .britech-login-card input::placeholder {
@@ -92,30 +147,53 @@ body.britech-style-login {
 
 .britech-login-card input:focus {
   border-color: var(--primary-brown);
+
+  box-shadow: 0 0 0 2px rgba(109, 76, 65, 0.1);
 }
+
+/* ==========================================
+   LOGIN BUTTON
+   ========================================== */
 
 .login-main-button {
   width: 100%;
-  padding: 12px;
+  padding: var(--padding-button);
+
   background-color: var(--primary-brown);
   color: var(--white);
+
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: var(--border-radius);
+
   font-size: 15px;
+  font-weight: bold;
+
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .login-main-button:hover {
   background-color: var(--primary-brown-hover);
 }
 
+.login-main-button:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================
+   FORGOT PASSWORD
+   ========================================== */
+
 .forgot-password {
   display: inline-block;
   margin-top: 15px;
+
   color: var(--primary-brown);
   text-decoration: none;
+
   font-size: 13px;
 }
 
@@ -123,39 +201,63 @@ body.britech-style-login {
   text-decoration: underline;
 }
 
+/* ==========================================
+   DIVIDER
+   ========================================== */
+
 .login-divider {
   display: flex;
   align-items: center;
+
   margin: 20px 0;
 }
 
 .login-divider span {
   flex: 1;
   height: 1px;
+
   background-color: rgba(109, 76, 65, 0.2);
 }
 
 .login-divider small {
   margin: 0 10px;
+
   color: var(--dark-text);
   opacity: 0.6;
 }
 
+/* ==========================================
+   CREATE ACCOUNT BUTTON
+   ========================================== */
+
 .create-account {
   display: inline-block;
-  padding: 10px 16px;
+
+  padding: var(--padding-button-small);
+
   background-color: transparent;
   color: var(--primary-brown);
+
   border: 1px solid var(--primary-brown);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
+
   text-decoration: none;
+
   font-size: 14px;
   font-weight: bold;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .create-account:hover {
   background-color: var(--light-beige);
 }
+
+/* ==========================================
+   BACK TO WEBSITE
+   ========================================== */
 
 .back-website {
   margin-top: 25px;
@@ -164,6 +266,7 @@ body.britech-style-login {
 .back-website a {
   color: var(--light-beige);
   text-decoration: none;
+
   font-size: 13px;
 }
 
@@ -171,108 +274,35 @@ body.britech-style-login {
   text-decoration: underline;
 }
 
+/* ==========================================
+   FOOTER
+   ========================================== */
+
 .simple-login-footer {
   margin-top: 30px;
-  font-size: 12px;
+
   color: var(--light-beige);
+
+  font-size: 12px;
+  text-align: center;
+
   opacity: 0.7;
 }
 
 /* ==========================================
-   BRITECH COLLEGE - THEME & COLOR PALETTE
+   RESPONSIVE DESIGN
    ========================================== */
 
-:root {
-  /* Color Palette */
-  --color-dark-brown: #3e2723;
-  --color-primary-brown: #6d4c41;
-  --color-primary-hover: #5d3a2f;
-  --color-cream: #f5f5dc;
-  --color-white: #ffffff;
-  --color-light-beige: #f5ebe0;
-  --color-dark-text: #2c1d11;
+@media (max-width: 480px) {
+  body.britech-style-login {
+    padding: 15px;
+  }
 
-  /* Layout Spacing & Padding Variables */
-  --padding-card: 30px 25px;
-  --padding-input: 12px 16px;
-  --padding-btn: 12px 20px;
-  --padding-btn-small: 10px 16px;
+  .login-brand h1 {
+    font-size: 24px;
+  }
 
-  /* Borders & Shadows */
-  --border-radius: 6px;
-  --box-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
-  --border-input: 1px solid rgba(109, 76, 65, 0.3);
-}
-
-/* GLOBAL RESETS USING THEME */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body.britech-login-page {
-  background-color: var(--color-dark-brown);
-  color: var(--color-white);
-}
-
-/* CARD THEME */
-.britech-login-card {
-  background-color: var(--color-cream);
-  color: var(--color-dark-text);
-  padding: var(--padding-card);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow-card);
-}
-
-/* INPUT THEME */
-.britech-login-card input {
-  background-color: var(--color-light-beige);
-  color: var(--color-dark-text);
-  border: var(--border-input);
-  padding: var(--padding-input);
-  border-radius: var(--border-radius);
-}
-
-.britech-login-card input:focus {
-  border-color: var(--color-primary-brown);
-}
-
-/* BUTTON THEMES */
-.britech-main-button {
-  background-color: var(--color-primary-brown);
-  color: var(--color-white);
-  padding: var(--padding-btn);
-  border-radius: var(--border-radius);
-}
-
-.britech-main-button:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.britech-create-account {
-  color: var(--color-primary-brown);
-  border: 1px solid var(--color-primary-brown);
-  padding: var(--padding-btn-small);
-  border-radius: var(--border-radius);
-}
-
-.britech-create-account:hover {
-  background-color: var(--color-light-beige);
-}
-
-/* LINKS AND TEXT */
-.britech-brand h1 {
-  color: var(--color-cream);
-}
-
-.britech-brand p,
-.britech-brand span,
-.britech-back-website a,
-.britech-login-footer {
-  color: var(--color-light-beige);
-}
-
-.britech-forgot-password {
-  color: var(--color-primary-brown);
+  .britech-login-card {
+    padding: 25px 20px;
+  }
 }
