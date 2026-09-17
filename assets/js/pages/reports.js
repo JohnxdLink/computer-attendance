@@ -1,0 +1,3 @@
+const reports = () => {};
+
+reports();
