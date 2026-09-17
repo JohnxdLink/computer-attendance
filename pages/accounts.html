@@ -3,9 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Computer | Accounts</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/pages/accounts.css" />
   </head>
-  <body>
-    <h1>Accounts Page</h1>
+
+  <body class="w-screen h-screen d-flex flex-row bg-light">
+    <aside class="pl-5 w-384">
+      <div class="pr-5 h-100 d-flex flex-column border-light-gray border-r">
+        <!-- Logo -->
+        <div class="pt-10 d-flex items-center gap-3">
+          <div class="w-64 h-auto">
+            <img class="w-100 h-100" src="../assets/images/logo/britech-logo.png" alt="BRITECH Logo" />
+          </div>
+
+          <div>
+            <p class="text-sm font-extrabold text-dark">COMPUTER</p>
+            <p class="text-xs text-gray">ATTENDANCE SYSTEM</p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="mt-8 d-flex flex-1 flex-column gap-2">
+          <!-- Dashboard -->
+          <a href="./dashboard.html" class="btn-tertiary btn-nav">
+            <span class="fa-solid fa-shapes"></span>
+            Dashboard
+          </a>
+
+          <!-- Attendance -->
+          <a href="./attendance.html" class="btn-tertiary btn-nav">
+            <span class="fa-solid fa-clipboard-user"></span>
+            Attendance
+          </a>
+
+          <!-- Students -->
+          <a href="./students.html" class="btn-tertiary btn-nav">
+            <span class="fa-solid fa-users"></span>
+            Students
+          </a>
+
+          <!-- Computer -->
+          <div class="d-flex flex-column">
+            <button id="computerToggle" class="btn-tertiary btn-nav__sub-item">
+              <div>
+                <span class="mr-1 fa-solid fa-computer"></span>
+                Computer
+              </div>
+
+              <i id="computerChevron" class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div id="computerMenu" class="d-none flex-column">
+              <a class="ml-12 btn-tertiary btn-nav" href="./computer/lists.html">Lists</a>
+              <a class="ml-12 btn-tertiary btn-nav" href="./computer/status.html">Status</a>
+            </div>
+          </div>
+
+          <!-- School -->
+          <div class="d-flex flex-column">
+            <button id="schoolToggle" class="btn-tertiary btn-nav__sub-item">
+              <div>
+                <span class="mr-1 fa-solid fa-school"></span>
+                School
+              </div>
+
+              <i id="schoolChevron" class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div id="schoolMenu" class="d-none flex-column">
+              <a class="ml-12 btn-tertiary btn-nav" href="./school/school-year.html">School Year</a>
+              <a class="ml-12 btn-tertiary btn-nav" href="./school/strand.html">Grade & Strand</a>
+              <a class="ml-12 btn-tertiary btn-nav" href="./school/section.html">Sections</a>
+            </div>
+          </div>
+
+          <!-- Staff/Accounts -->
+          <a href="./accounts.html" class="btn-tertiary btn-tertiary__is-active btn-nav">
+            <span class="mr-1 fa-solid fa-user-tie"></span>
+            Accounts
+          </a>
+
+          <!-- Reports -->
+          <a href="./reports.html" class="btn-tertiary btn-nav">
+            <span class="fa-solid fa-chart-column"></span>
+            Reports
+          </a>
+        </nav>
+
+        <!-- Sign-out -->
+        <div class="pb-5">
+          <a href="../index.html" class="w-100 btn-tertiary btn-nav">
+            <span class="fa-solid fa-right-to-bracket"></span>
+            Sign-out
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main container -->
+    <div class="w-100 h-screen bg-warning">
+      <header class="p-5 d-flex flex-row items-center header__h-15">
+        <div
+          class="px-5 w-100 h-100 d-flex flex-row justify-between items-center bg-white border border-light-gray rounded-md shadow-md"
+        >
+          <div>
+            <p class="text-gray text-md">Welcome!</p>
+            <h1 class="text-secondary text-xl">Juan Dela Cruz</h1>
+          </div>
+
+          <h1 class="text-primary text-xl">Accounts</h1>
+        </div>
+      </header>
+
+      <main class="p-5 d-flex flex-column gap-5 main-container__h-85"></main>
+    </div>
   </body>
+  <script type="module" src="../assets/js/main.js"></script>
+  <script type="module" src="../assets/js/pages/accounts.js"></script>
 </html>
