@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const staffService = require("../services/staff-service.js");
 
 // CREATE - Register new staff
@@ -7,23 +8,15 @@ const createStaff = async (req, res) => {
 
     const result = await staffService.createStaff(account_id, role_id, lastname, firstname, contact_no, email);
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Staff member created successfully.",
-      data: {
-        id: result.insertId,
-        account_id,
-        role_id,
-        lastname,
-        firstname,
-        contact_no,
-        email,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -33,15 +26,14 @@ const findAllStaffs = async (req, res) => {
   try {
     const staffs = await staffService.findAllStaffs();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: staffs.length,
       data: staffs,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch staff records.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -54,20 +46,20 @@ const findStaffById = async (req, res) => {
     const staff = await staffService.findStaffById(id);
 
     if (!staff) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Staff record not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: staff,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -80,20 +72,20 @@ const findStaffByAccountId = async (req, res) => {
     const staff = await staffService.findStaffByAccountId(account_id);
 
     if (!staff) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Staff record not found for this account.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: staff,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -106,20 +98,20 @@ const findStaffByEmail = async (req, res) => {
     const staff = await staffService.findStaffByEmail(email);
 
     if (!staff) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Staff record not found for this email.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: staff,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -132,21 +124,15 @@ const updateStaff = async (req, res) => {
 
     const result = await staffService.updateStaff(id, account_id, role_id, lastname, firstname, contact_no, email);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Staff record not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Staff record updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -158,21 +144,15 @@ const deleteStaff = async (req, res) => {
 
     const result = await staffService.deleteStaff(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Staff record not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Staff record deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete staff record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };

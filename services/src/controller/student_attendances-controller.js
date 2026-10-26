@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const studentAttendanceService = require("../services/student_attendances-service.js");
 
 // CREATE - Record new student attendance
@@ -14,23 +15,15 @@ const createStudentAttendance = async (req, res) => {
       purpose,
     );
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Attendance record created successfully.",
-      data: {
-        id: result.insertId,
-        student_id,
-        computer_id,
-        attendance_date,
-        time_in,
-        time_out,
-        purpose,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create attendance record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -40,15 +33,14 @@ const findAllStudentAttendances = async (req, res) => {
   try {
     const attendances = await studentAttendanceService.findAllStudentAttendances();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: attendances.length,
       data: attendances,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch attendance records.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -61,20 +53,20 @@ const findStudentAttendanceById = async (req, res) => {
     const attendance = await studentAttendanceService.findStudentAttendanceById(id);
 
     if (!attendance) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Attendance record not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: attendance,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve attendance record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -86,15 +78,14 @@ const findStudentAttendancesByStudentId = async (req, res) => {
 
     const attendances = await studentAttendanceService.findStudentAttendancesByStudentId(student_id);
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: attendances.length,
       data: attendances,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve student attendance history.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -106,15 +97,14 @@ const findStudentAttendancesByComputerId = async (req, res) => {
 
     const attendances = await studentAttendanceService.findStudentAttendancesByComputerId(computer_id);
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: attendances.length,
       data: attendances,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve computer attendance history.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -135,21 +125,15 @@ const updateStudentAttendance = async (req, res) => {
       purpose,
     );
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Attendance record not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Attendance record updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update attendance record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -161,21 +145,15 @@ const deleteStudentAttendance = async (req, res) => {
 
     const result = await studentAttendanceService.deleteStudentAttendance(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Attendance record not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Attendance record deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete attendance record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };

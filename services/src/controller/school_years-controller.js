@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const schoolYearService = require("../services/school_years-service.js");
 
 // CREATE - Register a new school year
@@ -7,22 +8,15 @@ const createSchoolYear = async (req, res) => {
 
     const result = await schoolYearService.createSchoolYear(staff_id, school_year, start_date, end_date, is_active);
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "School year created successfully.",
-      data: {
-        id: result.insertId,
-        staff_id,
-        school_year,
-        start_date,
-        end_date,
-        is_active,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create school year.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -32,15 +26,14 @@ const findAllSchoolYears = async (req, res) => {
   try {
     const schoolYears = await schoolYearService.findAllSchoolYears();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: schoolYears.length,
       data: schoolYears,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch school years.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -51,20 +44,20 @@ const findActiveSchoolYear = async (req, res) => {
     const activeSchoolYear = await schoolYearService.findActiveSchoolYear();
 
     if (!activeSchoolYear) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "No active school year set.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: activeSchoolYear,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to retrieve active school year.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -77,20 +70,20 @@ const findSchoolYearById = async (req, res) => {
     const schoolYear = await schoolYearService.findSchoolYearById(id);
 
     if (!schoolYear) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "School year not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: schoolYear,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve school year.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -103,20 +96,20 @@ const findSchoolYearByYear = async (req, res) => {
     const record = await schoolYearService.findSchoolYearByYear(school_year);
 
     if (!record) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "School year not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: record,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve school year.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -130,20 +123,20 @@ const updateSchoolYear = async (req, res) => {
     const result = await schoolYearService.updateSchoolYear(id, staff_id, school_year, start_date, end_date, is_active);
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "School year not found or no changes made.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "School year updated successfully.",
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update school year.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -156,20 +149,20 @@ const deleteSchoolYear = async (req, res) => {
     const result = await schoolYearService.deleteSchoolYear(id);
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "School year not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "School year deleted successfully.",
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete school year.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };

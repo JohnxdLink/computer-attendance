@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const gradeNStrandService = require("../services/grade_n_strands-service.js");
 
 // CREATE - Add a new grade level and strand combination
@@ -7,20 +8,15 @@ const createGradeNStrand = async (req, res) => {
 
     const result = await gradeNStrandService.createGradeNStrand(grade_level, strand, description);
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Grade level and strand created successfully.",
-      data: {
-        id: result.insertId,
-        grade_level,
-        strand,
-        description,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create grade level and strand.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -30,15 +26,14 @@ const findAllGradeNStrands = async (req, res) => {
   try {
     const gradeNStrands = await gradeNStrandService.findAllGradeNStrands();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: gradeNStrands.length,
       data: gradeNStrands,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch grade levels and strands.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -51,25 +46,25 @@ const findGradeNStrandById = async (req, res) => {
     const gradeNStrand = await gradeNStrandService.findGradeNStrandById(id);
 
     if (!gradeNStrand) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Grade level and strand record not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: gradeNStrand,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve grade level and strand.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
-// READ - Search grade level and strand by grade_level and strand params
+// READ - Search grade level and strand by query parameters
 const findGradeNStrand = async (req, res) => {
   try {
     const { grade_level, strand } = req.query;
@@ -77,20 +72,20 @@ const findGradeNStrand = async (req, res) => {
     const gradeNStrand = await gradeNStrandService.findGradeNStrand(grade_level, strand);
 
     if (!gradeNStrand) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Grade level and strand combination not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: gradeNStrand,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve grade level and strand.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -103,21 +98,15 @@ const updateGradeNStrand = async (req, res) => {
 
     const result = await gradeNStrandService.updateGradeNStrand(id, grade_level, strand, description);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Grade level and strand record not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Grade level and strand updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update grade level and strand.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -129,21 +118,15 @@ const deleteGradeNStrand = async (req, res) => {
 
     const result = await gradeNStrandService.deleteGradeNStrand(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Grade level and strand record not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Grade level and strand deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete grade level and strand.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
