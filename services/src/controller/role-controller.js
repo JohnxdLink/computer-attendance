@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const roleService = require("../services/role-service.js");
 
 // CREATE - Register a new role
@@ -7,19 +8,15 @@ const createRole = async (req, res) => {
 
     const result = await roleService.createRole(name, description);
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Role created successfully.",
-      data: {
-        id: result.insertId,
-        name,
-        description,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create role.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -29,15 +26,14 @@ const findAllRoles = async (req, res) => {
   try {
     const roles = await roleService.findAllRoles();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: roles.length,
       data: roles,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch roles.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -49,21 +45,14 @@ const findRoleById = async (req, res) => {
 
     const role = await roleService.findRoleById(id);
 
-    if (!role) {
-      return res.status(404).json({
-        success: false,
-        message: "Role not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: role,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve role.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -76,20 +65,20 @@ const findRoleByName = async (req, res) => {
     const role = await roleService.findRoleByName(name);
 
     if (!role) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Role not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: role,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve role.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -102,21 +91,15 @@ const updateRole = async (req, res) => {
 
     const result = await roleService.updateRole(id, name, description);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Role not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Role updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update role.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -128,21 +111,15 @@ const deleteRole = async (req, res) => {
 
     const result = await roleService.deleteRole(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Role not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Role deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete role.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };

@@ -1,176 +1,169 @@
-const studentService = require("../services/students-service.js");
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
+const studentAttendanceService = require("../services/student_attendances-service.js");
 
-// CREATE - Register a new student
-const createStudent = async (req, res) => {
+// CREATE - Record new student attendance
+const createStudentAttendance = async (req, res) => {
   try {
-    const { grade_section_id, account_id, lastname, firstname, middlename, contact_no } = req.body;
+    const { student_id, computer_id, attendance_date, time_in, time_out, purpose } = req.body;
 
-    const result = await studentService.createStudent(
-      grade_section_id,
-      account_id,
-      lastname,
-      firstname,
-      middlename,
-      contact_no,
+    const result = await studentAttendanceService.createStudentAttendance(
+      student_id,
+      computer_id,
+      attendance_date,
+      time_in,
+      time_out,
+      purpose,
     );
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
-      message: "Student registered successfully.",
-      data: {
-        id: result.insertId,
-        grade_section_id,
-        account_id,
-        lastname,
-        firstname,
-        middlename,
-        contact_no,
-      },
+      message: "Attendance record created successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create student record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
-// READ - Get all students
-const findAllStudents = async (req, res) => {
+// READ - Get all attendance records
+const findAllStudentAttendances = async (req, res) => {
   try {
-    const students = await studentService.findAllStudents();
+    const attendances = await studentAttendanceService.findAllStudentAttendances();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: students.length,
-      data: students,
+      data: attendances,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch student records.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
 
-// READ - Get student by ID
-const findStudentById = async (req, res) => {
+// READ - Get single attendance record by ID
+const findStudentAttendanceById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const student = await studentService.findStudentById(id);
+    const attendance = await studentAttendanceService.findStudentAttendanceById(id);
 
-    if (!student) {
-      return res.status(404).json({
+    if (!attendance) {
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
-        message: "Student record not found.",
+        message: "Attendance record not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      data: student,
+      data: attendance,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve student record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
-// READ - Get student by account ID
-const findStudentByAccountId = async (req, res) => {
+// READ - Get all attendance records for a specific student ID
+const findStudentAttendancesByStudentId = async (req, res) => {
   try {
-    const { account_id } = req.params;
+    const { student_id } = req.params;
 
-    const student = await studentService.findStudentByAccountId(account_id);
+    const attendances = await studentAttendanceService.findStudentAttendancesByStudentId(student_id);
 
-    if (!student) {
-      return res.status(404).json({
-        success: false,
-        message: "Student record not found for this account.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      data: student,
+      data: attendances,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve student record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
-// UPDATE - Update student by ID
-const updateStudent = async (req, res) => {
+// READ - Get all attendance records for a specific computer ID
+const findStudentAttendancesByComputerId = async (req, res) => {
+  try {
+    const { computer_id } = req.params;
+
+    const attendances = await studentAttendanceService.findStudentAttendancesByComputerId(computer_id);
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: attendances,
+    });
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      message: error.message || ReasonPhrases.BAD_REQUEST,
+    });
+  }
+};
+
+// UPDATE - Update attendance record by ID
+const updateStudentAttendance = async (req, res) => {
   try {
     const { id } = req.params;
-    const { grade_section_id, account_id, lastname, firstname, middlename, contact_no } = req.body;
+    const { student_id, computer_id, attendance_date, time_in, time_out, purpose } = req.body;
 
-    const result = await studentService.updateStudent(
+    const result = await studentAttendanceService.updateStudentAttendance(
       id,
-      grade_section_id,
-      account_id,
-      lastname,
-      firstname,
-      middlename,
-      contact_no,
+      student_id,
+      computer_id,
+      attendance_date,
+      time_in,
+      time_out,
+      purpose,
     );
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Student record not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      message: "Student record updated successfully.",
+      message: "Attendance record updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update student record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
-// DELETE - Delete student by ID
-const deleteStudent = async (req, res) => {
+// DELETE - Delete attendance record by ID
+const deleteStudentAttendance = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await studentService.deleteStudent(id);
+    const result = await studentAttendanceService.deleteStudentAttendance(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Student record not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      message: "Student record deleted successfully.",
+      message: "Attendance record deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete student record.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
 
 module.exports = {
-  createStudent,
-  findAllStudents,
-  findStudentById,
-  findStudentByAccountId,
-  updateStudent,
-  deleteStudent,
+  createStudentAttendance,
+  findAllStudentAttendances,
+  findStudentAttendanceById,
+  findStudentAttendancesByStudentId,
+  findStudentAttendancesByComputerId,
+  updateStudentAttendance,
+  deleteStudentAttendance,
 };

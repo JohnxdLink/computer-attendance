@@ -1,3 +1,4 @@
+const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const computerService = require("../services/computers-service.js");
 
 // CREATE - Register a new computer
@@ -7,19 +8,15 @@ const createComputer = async (req, res) => {
 
     const result = await computerService.createComputer(pc_number, status);
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Computer registered successfully.",
-      data: {
-        id: result.insertId,
-        pc_number,
-        status,
-      },
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to create computer.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -29,15 +26,14 @@ const findAllComputers = async (req, res) => {
   try {
     const computers = await computerService.findAllComputers();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
-      count: computers.length,
       data: computers,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.message || "Failed to fetch computers.",
+      message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
 };
@@ -50,20 +46,20 @@ const findComputerById = async (req, res) => {
     const computer = await computerService.findComputerById(id);
 
     if (!computer) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Computer not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: computer,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve computer.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -76,20 +72,20 @@ const findComputerByPcNumber = async (req, res) => {
     const computer = await computerService.findComputerByPcNumber(pc_number);
 
     if (!computer) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Computer not found.",
       });
     }
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: computer,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to retrieve computer.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -102,21 +98,15 @@ const updateComputer = async (req, res) => {
 
     const result = await computerService.updateComputer(id, pc_number, status);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Computer not found or no changes made.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Computer updated successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to update computer.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
@@ -128,21 +118,15 @@ const deleteComputer = async (req, res) => {
 
     const result = await computerService.deleteComputer(id);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Computer not found.",
-      });
-    }
-
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Computer deleted successfully.",
+      data: result,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      message: error.message || "Failed to delete computer.",
+      message: error.message || ReasonPhrases.BAD_REQUEST,
     });
   }
 };
