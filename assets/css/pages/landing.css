@@ -870,3 +870,69 @@ footer {
     font-size: 1.75rem;
   }
 }
+
+/* style.css */
+body,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* You can replace this with your project font */
+}
+
+/* Call To Action Section */
+.cta-section {
+  background-color: #5c3a21; /* Dark Brown - Heading background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px; /* Adjust height as needed */
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+/* Container */
+.cta-container {
+  text-align: center;
+  max-width: 600px; /* Prevents text from becoming too wide */
+  width: 100%;
+}
+
+/* Heading */
+.cta-heading {
+  color: #ffffff; /* White - Headings, Highlights */
+  font-size: 3rem; /* Extra large heading */
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Description */
+.cta-description {
+  color: #f5e6cc; /* Cream - Page backgrounds, Modals, Input fields, Text on dark BGs */
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+/* Button */
+.cta-button {
+  background-color: #8b5e3c; /* Primary dark - Main buttons, Selected tabs, links */
+  color: #ffffff; /* White - Important UI controls, info states */
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 15px 50px;
+  border-radius: 50px;
+  border: 3px solid #ffffff; /* White highlight as border */
+  display: inline-block;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Added subtle shadow for depth */
+}
+
+/* Button Hover State */
+.cta-button:hover {
+  background-color: #5c3a21; /* Dark Brown - Hover states */
+  transform: translateY(-2px); /* Subtle lift on hover */
+}
