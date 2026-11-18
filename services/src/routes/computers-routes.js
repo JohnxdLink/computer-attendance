@@ -1,17 +1,17 @@
 const { Router } = require("express");
 
 const authenticate = require("../middleware/authenticate.js");
-const accountsController = require("../controller/accounts-controller.js");
+const computersController = require("../controller/computers-controller.js");
 
 const router = Router();
 
 router.use(authenticate);
 
-router.get("/", accountsController.findAllAccounts);
-router.get("/:id", accountsController.findAccountById);
-router.get("/:username", accountsController.findAccountByUsername);
-router.post("/", accountsController.createAccount);
-router.put("/;id", accountsController.updateAccount);
-router.delete("/:id", accountsController.deleteAccount);
+router.post("/", computersController.createComputer);
+router.get("/:", computersController.findAllComputers);
+router.get("/:id", computersController.findComputerById);
+router.get("/pcnumber", computersController.findComputerByPcNumber);
+router.put("/:id", computersController.updateComputer);
+router.delete("/:id", computersController.deleteComputer);
 
 module.exports = router;
